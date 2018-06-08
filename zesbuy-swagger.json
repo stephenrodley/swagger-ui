@@ -1,0 +1,529 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a sample.",
+    "version" : "v1",
+    "title" : "Swagger Maven Plugin Sample"
+  },
+  "host" : "www.example.com:8080",
+  "basePath" : "/api",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/products" : {
+      "post" : {
+        "operationId" : "addProduct",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Product"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : ""
+          }
+        }
+      }
+    },
+    "/products/download/{id}" : {
+      "get" : {
+        "operationId" : "download",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/InputStreamResource"
+            }
+          }
+        }
+      }
+    },
+    "/products/list" : {
+      "get" : {
+        "operationId" : "getProducts",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PageProduct"
+            }
+          }
+        }
+      }
+    },
+    "/products/uploadFile" : {
+      "post" : {
+        "operationId" : "uploadFile",
+        "parameters" : [ {
+          "name" : "file",
+          "in" : "query",
+          "required" : true,
+          "type" : "ref"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/products/username" : {
+      "get" : {
+        "operationId" : "currentUserName",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}" : {
+      "get" : {
+        "operationId" : "getProduct",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ResourceProduct"
+            }
+          }
+        }
+      },
+      "put" : {
+        "operationId" : "updateProduct",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Product"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "deleteProduct",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Product"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "zesbie_auth" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "https://xxxx.com/abc",
+      "flow" : "implicit",
+      "scopes" : {
+        "admin" : "admin scope"
+      }
+    }
+  },
+  "definitions" : {
+    "CurrencyContext" : {
+      "type" : "object",
+      "properties" : {
+        "empty" : {
+          "type" : "boolean"
+        },
+        "providerName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CurrencyUnit" : {
+      "type" : "object",
+      "properties" : {
+        "context" : {
+          "$ref" : "#/definitions/CurrencyContext"
+        },
+        "defaultFractionDigits" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numericCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "currencyCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "InputStream" : {
+      "type" : "object"
+    },
+    "InputStreamResource" : {
+      "type" : "object",
+      "properties" : {
+        "inputStream" : {
+          "$ref" : "#/definitions/InputStream"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "open" : {
+          "type" : "boolean"
+        },
+        "url" : {
+          "type" : "string",
+          "format" : "url"
+        },
+        "file" : {
+          "type" : "file"
+        },
+        "uri" : {
+          "type" : "string",
+          "format" : "uri"
+        },
+        "readable" : {
+          "type" : "boolean"
+        },
+        "filename" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Link" : {
+      "type" : "object",
+      "properties" : {
+        "rel" : {
+          "type" : "string",
+          "xml" : {
+            "attribute" : true
+          }
+        },
+        "href" : {
+          "type" : "string",
+          "xml" : {
+            "attribute" : true
+          }
+        }
+      }
+    },
+    "MonetaryAmount" : {
+      "type" : "object",
+      "properties" : {
+        "factory" : {
+          "$ref" : "#/definitions/MonetaryAmountFactoryMonetaryAmount"
+        },
+        "context" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "zero" : {
+          "type" : "boolean"
+        },
+        "negative" : {
+          "type" : "boolean"
+        },
+        "positive" : {
+          "type" : "boolean"
+        },
+        "positiveOrZero" : {
+          "type" : "boolean"
+        },
+        "negativeOrZero" : {
+          "type" : "boolean"
+        },
+        "currency" : {
+          "$ref" : "#/definitions/CurrencyUnit"
+        },
+        "number" : {
+          "$ref" : "#/definitions/NumberValue"
+        }
+      }
+    },
+    "MonetaryAmountFactory" : {
+      "type" : "object",
+      "properties" : {
+        "defaultMonetaryContext" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "maximalMonetaryContext" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "minNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        },
+        "maxNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        }
+      }
+    },
+    "MonetaryAmountFactoryMonetaryAmount" : {
+      "type" : "object",
+      "properties" : {
+        "defaultMonetaryContext" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "maximalMonetaryContext" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "minNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        },
+        "maxNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        }
+      }
+    },
+    "MonetaryContext" : {
+      "type" : "object",
+      "properties" : {
+        "precision" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fixedScale" : {
+          "type" : "boolean"
+        },
+        "maxScale" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "empty" : {
+          "type" : "boolean"
+        },
+        "providerName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "NumberValue" : {
+      "type" : "object",
+      "properties" : {
+        "amountFractionDenominator" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "amountFractionNumerator" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "precision" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "scale" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "Page" : {
+      "type" : "object",
+      "properties" : {
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sort" : {
+          "$ref" : "#/definitions/Sort"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "first" : {
+          "type" : "boolean"
+        },
+        "last" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "PageProduct" : {
+      "type" : "object",
+      "properties" : {
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sort" : {
+          "$ref" : "#/definitions/Sort"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "first" : {
+          "type" : "boolean"
+        },
+        "last" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Product" : {
+      "type" : "object",
+      "required" : [ "title" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string",
+          "minLength" : 2,
+          "maxLength" : 2147483647
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "price" : {
+          "$ref" : "#/definitions/MonetaryAmount"
+        },
+        "image" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        }
+      }
+    },
+    "Resource" : {
+      "type" : "object",
+      "properties" : {
+        "links" : {
+          "type" : "array",
+          "xml" : {
+            "name" : "link",
+            "namespace" : "http://www.w3.org/2005/Atom"
+          },
+          "readOnly" : true,
+          "items" : {
+            "xml" : {
+              "name" : "link"
+            },
+            "$ref" : "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "ResourceProduct" : {
+      "type" : "object",
+      "required" : [ "title" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string",
+          "minLength" : 2,
+          "maxLength" : 2147483647
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "price" : {
+          "$ref" : "#/definitions/MonetaryAmount"
+        },
+        "image" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "links" : {
+          "type" : "array",
+          "xml" : {
+            "name" : "link",
+            "namespace" : "http://www.w3.org/2005/Atom"
+          },
+          "readOnly" : true,
+          "items" : {
+            "xml" : {
+              "name" : "link"
+            },
+            "$ref" : "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "Sort" : {
+      "type" : "object"
+    }
+  }
+}
