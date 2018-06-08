@@ -41,7 +41,10 @@
 
       // Build a system
       const ui = SwaggerUIBundle({
-        url: "https://zesbytes.github.io/swagger-ui/zesbuy-swagger.json",
+        urls: [
+		  {url: "https://zesbytes.github.io/swagger-ui/zesbuy-swagger.json", name: "zesbuy"},
+		  {url: "https://zesbytes.github.io/swagger-ui/petstore-swagger.json", name: "petstore"}
+		],
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
