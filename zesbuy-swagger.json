@@ -5,8 +5,8 @@
     "version" : "v1",
     "title" : "Swagger Maven Plugin Sample"
   },
-  "host" : "www.example.com:8080",
-  "basePath" : "/api",
+  "host" : "zesbuy.herokuapp.com",
+  "basePath" : "/",
   "schemes" : [ "https" ],
   "paths" : {
     "/products" : {
@@ -155,8 +155,8 @@
   "securityDefinitions" : {
     "zesbie_auth" : {
       "type" : "oauth2",
-      "authorizationUrl" : "https://xxxx.com/abc",
-      "flow" : "implicit",
+      "authorizationUrl" : "https://keycloak-zesbytes.herokuapp.com/auth",
+      "flow" : "accessCode",
       "scopes" : {
         "admin" : "admin scope"
       }
@@ -259,13 +259,13 @@
         "negative" : {
           "type" : "boolean"
         },
+        "negativeOrZero" : {
+          "type" : "boolean"
+        },
         "positive" : {
           "type" : "boolean"
         },
         "positiveOrZero" : {
-          "type" : "boolean"
-        },
-        "negativeOrZero" : {
           "type" : "boolean"
         },
         "currency" : {
@@ -313,12 +313,12 @@
     "MonetaryContext" : {
       "type" : "object",
       "properties" : {
+        "fixedScale" : {
+          "type" : "boolean"
+        },
         "precision" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "fixedScale" : {
-          "type" : "boolean"
         },
         "maxScale" : {
           "type" : "integer",
@@ -335,19 +335,19 @@
     "NumberValue" : {
       "type" : "object",
       "properties" : {
-        "amountFractionDenominator" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "amountFractionNumerator" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "precision" : {
+        "amountFractionDenominator" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "scale" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "scale" : {
+        "precision" : {
           "type" : "integer",
           "format" : "int32"
         }
