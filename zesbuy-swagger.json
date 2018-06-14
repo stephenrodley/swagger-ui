@@ -164,6 +164,9 @@
       }
     }
   },
+  "security" : {
+    "zesbie_auth": ["openid"]
+  },
   "definitions" : {
     "CurrencyContext" : {
       "type" : "object",
