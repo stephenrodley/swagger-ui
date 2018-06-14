@@ -155,7 +155,8 @@
   "securityDefinitions" : {
     "zesbie_auth" : {
       "type" : "oauth2",
-      "authorizationUrl" : "https://keycloak-zesbytes.herokuapp.com/auth",
+      "authorizationUrl" : "https://keycloak-zesbytes.herokuapp.com/auth/realms/Zesbytes/protocol/openid-connect/auth",
+      "tokenUrl" : "https://keycloak-zesbytes.herokuapp.com/auth/realms/Zesbytes/protocol/openid-connect/token",
       "flow" : "accessCode",
       "scopes" : {
         "admin" : "admin scope"
@@ -180,6 +181,9 @@
         "context" : {
           "$ref" : "#/definitions/CurrencyContext"
         },
+        "currencyCode" : {
+          "type" : "string"
+        },
         "defaultFractionDigits" : {
           "type" : "integer",
           "format" : "int32"
@@ -187,9 +191,6 @@
         "numericCode" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "currencyCode" : {
-          "type" : "string"
         }
       }
     },
@@ -219,11 +220,11 @@
           "type" : "string",
           "format" : "uri"
         },
-        "readable" : {
-          "type" : "boolean"
-        },
         "filename" : {
           "type" : "string"
+        },
+        "readable" : {
+          "type" : "boolean"
         }
       }
     },
@@ -262,10 +263,10 @@
         "negativeOrZero" : {
           "type" : "boolean"
         },
-        "positive" : {
+        "positiveOrZero" : {
           "type" : "boolean"
         },
-        "positiveOrZero" : {
+        "positive" : {
           "type" : "boolean"
         },
         "currency" : {
@@ -279,43 +280,40 @@
     "MonetaryAmountFactory" : {
       "type" : "object",
       "properties" : {
+        "maxNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        },
+        "minNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        },
         "defaultMonetaryContext" : {
           "$ref" : "#/definitions/MonetaryContext"
         },
         "maximalMonetaryContext" : {
           "$ref" : "#/definitions/MonetaryContext"
-        },
-        "minNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
-        "maxNumber" : {
-          "$ref" : "#/definitions/NumberValue"
         }
       }
     },
     "MonetaryAmountFactoryMonetaryAmount" : {
       "type" : "object",
       "properties" : {
+        "maxNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        },
+        "minNumber" : {
+          "$ref" : "#/definitions/NumberValue"
+        },
         "defaultMonetaryContext" : {
           "$ref" : "#/definitions/MonetaryContext"
         },
         "maximalMonetaryContext" : {
           "$ref" : "#/definitions/MonetaryContext"
-        },
-        "minNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
-        "maxNumber" : {
-          "$ref" : "#/definitions/NumberValue"
         }
       }
     },
     "MonetaryContext" : {
       "type" : "object",
       "properties" : {
-        "fixedScale" : {
-          "type" : "boolean"
-        },
         "precision" : {
           "type" : "integer",
           "format" : "int32"
@@ -323,6 +321,9 @@
         "maxScale" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "fixedScale" : {
+          "type" : "boolean"
         },
         "empty" : {
           "type" : "boolean"
@@ -335,21 +336,21 @@
     "NumberValue" : {
       "type" : "object",
       "properties" : {
-        "amountFractionNumerator" : {
+        "precision" : {
           "type" : "integer",
-          "format" : "int64"
-        },
-        "amountFractionDenominator" : {
-          "type" : "integer",
-          "format" : "int64"
+          "format" : "int32"
         },
         "scale" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "precision" : {
+        "amountFractionDenominator" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int64"
+        },
+        "amountFractionNumerator" : {
+          "type" : "integer",
+          "format" : "int64"
         }
       }
     },
@@ -381,15 +382,15 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
-        "numberOfElements" : {
-          "type" : "integer",
-          "format" : "int32"
+        "last" : {
+          "type" : "boolean"
         },
         "first" : {
           "type" : "boolean"
         },
-        "last" : {
-          "type" : "boolean"
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
@@ -421,15 +422,15 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
-        "numberOfElements" : {
-          "type" : "integer",
-          "format" : "int32"
+        "last" : {
+          "type" : "boolean"
         },
         "first" : {
           "type" : "boolean"
         },
-        "last" : {
-          "type" : "boolean"
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
