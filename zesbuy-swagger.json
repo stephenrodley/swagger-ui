@@ -159,6 +159,7 @@
       "tokenUrl" : "https://keycloak-zesbytes.herokuapp.com/auth/realms/Zesbytes/protocol/openid-connect/token",
       "flow" : "accessCode",
       "scopes" : {
+        "openid" : "openid scope",
         "admin" : "admin scope"
       }
     }
@@ -220,11 +221,11 @@
           "type" : "string",
           "format" : "uri"
         },
-        "filename" : {
-          "type" : "string"
-        },
         "readable" : {
           "type" : "boolean"
+        },
+        "filename" : {
+          "type" : "string"
         }
       }
     },
@@ -260,13 +261,13 @@
         "negative" : {
           "type" : "boolean"
         },
-        "negativeOrZero" : {
+        "positive" : {
           "type" : "boolean"
         },
         "positiveOrZero" : {
           "type" : "boolean"
         },
-        "positive" : {
+        "negativeOrZero" : {
           "type" : "boolean"
         },
         "currency" : {
@@ -280,16 +281,16 @@
     "MonetaryAmountFactory" : {
       "type" : "object",
       "properties" : {
-        "maxNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
         "minNumber" : {
           "$ref" : "#/definitions/NumberValue"
         },
-        "defaultMonetaryContext" : {
-          "$ref" : "#/definitions/MonetaryContext"
+        "maxNumber" : {
+          "$ref" : "#/definitions/NumberValue"
         },
         "maximalMonetaryContext" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "defaultMonetaryContext" : {
           "$ref" : "#/definitions/MonetaryContext"
         }
       }
@@ -297,16 +298,16 @@
     "MonetaryAmountFactoryMonetaryAmount" : {
       "type" : "object",
       "properties" : {
-        "maxNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
         "minNumber" : {
           "$ref" : "#/definitions/NumberValue"
         },
-        "defaultMonetaryContext" : {
-          "$ref" : "#/definitions/MonetaryContext"
+        "maxNumber" : {
+          "$ref" : "#/definitions/NumberValue"
         },
         "maximalMonetaryContext" : {
+          "$ref" : "#/definitions/MonetaryContext"
+        },
+        "defaultMonetaryContext" : {
           "$ref" : "#/definitions/MonetaryContext"
         }
       }
@@ -314,16 +315,16 @@
     "MonetaryContext" : {
       "type" : "object",
       "properties" : {
-        "precision" : {
-          "type" : "integer",
-          "format" : "int32"
+        "fixedScale" : {
+          "type" : "boolean"
         },
         "maxScale" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "fixedScale" : {
-          "type" : "boolean"
+        "precision" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "empty" : {
           "type" : "boolean"
@@ -336,19 +337,19 @@
     "NumberValue" : {
       "type" : "object",
       "properties" : {
-        "precision" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
         "scale" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "amountFractionDenominator" : {
+        "precision" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "amountFractionNumerator" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "amountFractionNumerator" : {
+        "amountFractionDenominator" : {
           "type" : "integer",
           "format" : "int64"
         }
@@ -357,13 +358,13 @@
     "Page" : {
       "type" : "object",
       "properties" : {
-        "totalPages" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
         "totalElements" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "size" : {
           "type" : "integer",
@@ -382,28 +383,28 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
         "last" : {
           "type" : "boolean"
         },
         "first" : {
           "type" : "boolean"
-        },
-        "numberOfElements" : {
-          "type" : "integer",
-          "format" : "int32"
         }
       }
     },
     "PageProduct" : {
       "type" : "object",
       "properties" : {
-        "totalPages" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
         "totalElements" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "size" : {
           "type" : "integer",
@@ -422,15 +423,15 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
         "last" : {
           "type" : "boolean"
         },
         "first" : {
           "type" : "boolean"
-        },
-        "numberOfElements" : {
-          "type" : "integer",
-          "format" : "int32"
         }
       }
     },
