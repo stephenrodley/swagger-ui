@@ -200,7 +200,7 @@
     }
   },
   "securityDefinitions" : {
-    "zesbie_auth" : {
+    "zesbuy_auth" : {
       "type" : "oauth2",
       "authorizationUrl" : "https://keycloak-zesbytes.herokuapp.com/auth/realms/Zesbytes/protocol/openid-connect/auth",
       "tokenUrl" : "https://keycloak-zesbytes.herokuapp.com/auth/realms/Zesbytes/protocol/openid-connect/token",
@@ -234,15 +234,15 @@
         "file" : {
           "type" : "file"
         },
+        "readable" : {
+          "type" : "boolean"
+        },
         "uri" : {
           "type" : "string",
           "format" : "uri"
         },
         "filename" : {
           "type" : "string"
-        },
-        "readable" : {
-          "type" : "boolean"
         }
       }
     },
@@ -266,13 +266,13 @@
     "Page" : {
       "type" : "object",
       "properties" : {
-        "totalElements" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "totalPages" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "size" : {
           "type" : "integer",
@@ -291,14 +291,14 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
-        "last" : {
+        "first" : {
           "type" : "boolean"
         },
         "numberOfElements" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "first" : {
+        "last" : {
           "type" : "boolean"
         }
       }
@@ -306,13 +306,13 @@
     "PageProduct" : {
       "type" : "object",
       "properties" : {
-        "totalElements" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "totalPages" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "size" : {
           "type" : "integer",
@@ -331,14 +331,14 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
-        "last" : {
+        "first" : {
           "type" : "boolean"
         },
         "numberOfElements" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "first" : {
+        "last" : {
           "type" : "boolean"
         }
       }
