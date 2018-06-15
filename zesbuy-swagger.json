@@ -24,7 +24,10 @@
           "201" : {
             "description" : ""
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       }
     },
     "/products/download/{id}" : {
@@ -43,12 +46,38 @@
               "$ref" : "#/definitions/InputStreamResource"
             }
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       }
     },
     "/products/list" : {
       "get" : {
         "operationId" : "getProducts",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Results page you want to retrieve (0..N)",
+          "required" : false,
+          "type" : "int"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "Number of records per page",
+          "required" : false,
+          "type" : "int"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -56,7 +85,10 @@
               "$ref" : "#/definitions/PageProduct"
             }
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       }
     },
     "/products/uploadFile" : {
@@ -75,7 +107,10 @@
               "type" : "object"
             }
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       }
     },
     "/products/username" : {
@@ -88,7 +123,10 @@
               "type" : "string"
             }
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       }
     },
     "/products/{id}" : {
@@ -108,7 +146,10 @@
               "$ref" : "#/definitions/ResourceProduct"
             }
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       },
       "put" : {
         "operationId" : "updateProduct",
@@ -130,7 +171,10 @@
           "default" : {
             "description" : "successful operation"
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       },
       "delete" : {
         "operationId" : "deleteProduct",
@@ -148,7 +192,10 @@
               "$ref" : "#/definitions/Product"
             }
           }
-        }
+        },
+        "security" : [ {
+          "zesbuy_auth" : [ ]
+        } ]
       }
     }
   },
@@ -164,42 +211,7 @@
       }
     }
   },
-  "security" : [
-	  {
-		  "zesbie_auth": ["openid"]
-	  }
-  ],
   "definitions" : {
-    "CurrencyContext" : {
-      "type" : "object",
-      "properties" : {
-        "empty" : {
-          "type" : "boolean"
-        },
-        "providerName" : {
-          "type" : "string"
-        }
-      }
-    },
-    "CurrencyUnit" : {
-      "type" : "object",
-      "properties" : {
-        "context" : {
-          "$ref" : "#/definitions/CurrencyContext"
-        },
-        "currencyCode" : {
-          "type" : "string"
-        },
-        "defaultFractionDigits" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "numericCode" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
     "InputStream" : {
       "type" : "object"
     },
@@ -226,11 +238,11 @@
           "type" : "string",
           "format" : "uri"
         },
-        "readable" : {
-          "type" : "boolean"
-        },
         "filename" : {
           "type" : "string"
+        },
+        "readable" : {
+          "type" : "boolean"
         }
       }
     },
@@ -248,115 +260,6 @@
           "xml" : {
             "attribute" : true
           }
-        }
-      }
-    },
-    "MonetaryAmount" : {
-      "type" : "object",
-      "properties" : {
-        "factory" : {
-          "$ref" : "#/definitions/MonetaryAmountFactoryMonetaryAmount"
-        },
-        "context" : {
-          "$ref" : "#/definitions/MonetaryContext"
-        },
-        "zero" : {
-          "type" : "boolean"
-        },
-        "negative" : {
-          "type" : "boolean"
-        },
-        "positive" : {
-          "type" : "boolean"
-        },
-        "positiveOrZero" : {
-          "type" : "boolean"
-        },
-        "negativeOrZero" : {
-          "type" : "boolean"
-        },
-        "currency" : {
-          "$ref" : "#/definitions/CurrencyUnit"
-        },
-        "number" : {
-          "$ref" : "#/definitions/NumberValue"
-        }
-      }
-    },
-    "MonetaryAmountFactory" : {
-      "type" : "object",
-      "properties" : {
-        "minNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
-        "maxNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
-        "maximalMonetaryContext" : {
-          "$ref" : "#/definitions/MonetaryContext"
-        },
-        "defaultMonetaryContext" : {
-          "$ref" : "#/definitions/MonetaryContext"
-        }
-      }
-    },
-    "MonetaryAmountFactoryMonetaryAmount" : {
-      "type" : "object",
-      "properties" : {
-        "minNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
-        "maxNumber" : {
-          "$ref" : "#/definitions/NumberValue"
-        },
-        "maximalMonetaryContext" : {
-          "$ref" : "#/definitions/MonetaryContext"
-        },
-        "defaultMonetaryContext" : {
-          "$ref" : "#/definitions/MonetaryContext"
-        }
-      }
-    },
-    "MonetaryContext" : {
-      "type" : "object",
-      "properties" : {
-        "fixedScale" : {
-          "type" : "boolean"
-        },
-        "maxScale" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "precision" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "empty" : {
-          "type" : "boolean"
-        },
-        "providerName" : {
-          "type" : "string"
-        }
-      }
-    },
-    "NumberValue" : {
-      "type" : "object",
-      "properties" : {
-        "scale" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "precision" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "amountFractionNumerator" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "amountFractionDenominator" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -388,12 +291,12 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
+        "last" : {
+          "type" : "boolean"
+        },
         "numberOfElements" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "last" : {
-          "type" : "boolean"
         },
         "first" : {
           "type" : "boolean"
@@ -428,12 +331,12 @@
         "sort" : {
           "$ref" : "#/definitions/Sort"
         },
+        "last" : {
+          "type" : "boolean"
+        },
         "numberOfElements" : {
           "type" : "integer",
           "format" : "int32"
-        },
-        "last" : {
-          "type" : "boolean"
         },
         "first" : {
           "type" : "boolean"
@@ -457,7 +360,7 @@
           "type" : "string"
         },
         "price" : {
-          "$ref" : "#/definitions/MonetaryAmount"
+          "type" : "string"
         },
         "image" : {
           "type" : "array",
@@ -504,7 +407,7 @@
           "type" : "string"
         },
         "price" : {
-          "$ref" : "#/definitions/MonetaryAmount"
+          "type" : "string"
         },
         "image" : {
           "type" : "array",
