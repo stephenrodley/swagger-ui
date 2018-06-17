@@ -36,6 +36,7 @@
 
     <script src="./swagger-ui-bundle.js"> </script>
     <script src="./swagger-ui-standalone-preset.js"> </script>
+	<script src="./keycloak-logout.js"> </script>
     <script>
     window.onload = function() {
 
@@ -45,7 +46,7 @@
 		  {url: "https://zesbytes.github.io/swagger-ui/zesbuy-swagger.json", name: "zesbuy"},
 		  {url: "https://zesbytes.github.io/swagger-ui/petstore-swagger.json", name: "petstore"}
 		],
-	oauth2RedirectUrl: "https://zesbytes.github.io/swagger-ui/oauth2-redirect.html",     
+	    oauth2RedirectUrl: "https://zesbytes.github.io/swagger-ui/oauth2-redirect.html",     
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
@@ -53,7 +54,8 @@
           SwaggerUIStandalonePreset
         ],
         plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl
+          SwaggerUIBundle.plugins.DownloadUrl,
+		  OAuthLogoutPlugin
         ],
         layout: "StandaloneLayout"
       })
